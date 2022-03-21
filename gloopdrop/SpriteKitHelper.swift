@@ -18,7 +18,13 @@ enum Layer: CGFloat {
     case player
     case collectible
 }
-
+// SpriteKit Physics Categories
+enum PhysicsCategory {
+    static let none:        UInt32 = 0
+    static let player:      UInt32 = 0b1   // 1
+    static let collectible: UInt32 = 0b10  // 2
+    static let foreground:  UInt32 = 0b100 // 4
+}
 // MARK: - SPRITEKIT EXTENSIONS
 
 extension SKSpriteNode {

@@ -32,7 +32,7 @@ class GameViewController: UIViewController {
             
             // set the view options
             view.ignoresSiblingOrder = false // control the rendering order of the nodes.
-            view.showsPhysics = false //  show or hide the physics bodies attached to your nodes.
+            view.showsPhysics = true //  show or hide the physics bodies attached to your nodes.
             view.showsFPS = true //  show or hide the frames per second (FPS) indicator.
             view.showsNodeCount = true //  used to show or hide the number of nodes.
         }
