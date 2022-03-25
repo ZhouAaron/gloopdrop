@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A4FB66E27E8488600641097 /* Nosifer-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4A4FB66D27E8488600641097 /* Nosifer-Regular.ttf */; };
 		4A85780F27E71C4E00A4D9F1 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85780E27E71C4E00A4D9F1 /* Collectible.swift */; };
 		4AE1A7B027E57C35004FB83A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1A7AF27E57C35004FB83A /* AppDelegate.swift */; };
 		4AE1A7B627E57C35004FB83A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1A7B527E57C35004FB83A /* GameScene.swift */; };
@@ -19,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A4FB66D27E8488600641097 /* Nosifer-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nosifer-Regular.ttf"; sourceTree = "<group>"; };
+		4A4FB66F27E84A7700641097 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4A85780E27E71C4E00A4D9F1 /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
 		4AE1A7AC27E57C35004FB83A /* gloopdrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gloopdrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE1A7AF27E57C35004FB83A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A4FB66C27E8486500641097 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4A4FB66D27E8488600641097 /* Nosifer-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		4AE1A7A327E57C35004FB83A = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +72,7 @@
 		4AE1A7AE27E57C35004FB83A /* gloopdrop */ = {
 			isa = PBXGroup;
 			children = (
+				4A4FB66C27E8486500641097 /* Fonts */,
 				4AE1A7AF27E57C35004FB83A /* AppDelegate.swift */,
 				4AE1A7B527E57C35004FB83A /* GameScene.swift */,
 				4AE1A7C627E6CF4B004FB83A /* Player.swift */,
@@ -68,6 +80,7 @@
 				4A85780E27E71C4E00A4D9F1 /* Collectible.swift */,
 				4AE1A7B727E57C35004FB83A /* GameViewController.swift */,
 				4AE1A7B927E57C35004FB83A /* Main.storyboard */,
+				4A4FB66F27E84A7700641097 /* Info.plist */,
 				4AE1A7BC27E57C36004FB83A /* Assets.xcassets */,
 				4AE1A7BE27E57C36004FB83A /* LaunchScreen.storyboard */,
 			);
@@ -132,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A4FB66E27E8488600641097 /* Nosifer-Regular.ttf in Resources */,
 				4AE1A7BB27E57C35004FB83A /* Main.storyboard in Resources */,
 				4AE1A7BD27E57C36004FB83A /* Assets.xcassets in Resources */,
 				4AE1A7C027E57C36004FB83A /* LaunchScreen.storyboard in Resources */,
@@ -299,6 +313,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y3UEYST8W9;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = gloopdrop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -330,6 +345,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y3UEYST8W9;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = gloopdrop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

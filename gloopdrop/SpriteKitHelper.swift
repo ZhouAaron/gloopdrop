@@ -17,6 +17,7 @@ enum Layer: CGFloat {
     case foreground
     case player
     case collectible
+    case ui
 }
 // SpriteKit Physics Categories
 enum PhysicsCategory {
@@ -60,5 +61,20 @@ extension SKSpriteNode {
                 run(repeatAction, withKey: name)
             }
         }
+    }
+}
+
+extension SKScene {
+    
+    // convert the view’s coordinates to scene coordinates
+    // Top of View
+    func viewTop() -> CGFloat {
+        return convertPoint(fromView: CGPoint(x: 0, y: 0)).y
+    }
+    
+    // Bottom of View
+    func viewBottom() -> CGFloat {
+        guard let view = view else { return 0.0 }
+        return convertPoint(fromView: CGPoint(x: 0.0, y: view.bounds.size.height)).y
     }
 }

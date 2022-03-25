@@ -10,12 +10,14 @@ import SpriteKit
 
 enum PlayerAnimationType: String {
     case walk
+    case die
 }
 
 class Player: SKSpriteNode {
     // MARK: - PROPERTIES
     
     private var walkTextures: [SKTexture]?
+    private var dieTextures: [SKTexture]?
     // MARK: - INIT
     
     init() {
@@ -27,7 +29,7 @@ class Player: SKSpriteNode {
         
         // Set up animation textures
         self.walkTextures = self.loadTextures(atlas: "blob", prefix: "blob-walk_", startAt: 0, stopsAt: 2)
-        
+        self.dieTextures = self.loadTextures(atlas: "blob", prefix: "blob-die_", startAt: 0, stopsAt: 0)
         // Set up other properties after init
         self.name = "player"
         self.setScale(1.0)
@@ -45,6 +47,7 @@ class Player: SKSpriteNode {
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
     }
     // MARK: - METHODS
     
@@ -59,8 +62,26 @@ class Player: SKSpriteNode {
         guard let walkTextures = walkTextures else {
             preconditionFailure("Could not find textures!")
         }
+        
+        // Stop the die animation
+        removeAction(forKey: PlayerAnimationType.die.rawValue)
+        
         // Run animation (forever)
         startAnimation(textures: walkTextures, speed: 0.25, name: PlayerAnimationType.walk.rawValue, count: 0, resize: true, restore: true)
+    }
+    
+    func die() {
+        // Check for textures
+        guard let dieTextures = dieTextures else {
+            preconditionFailure("Could not find textures!")
+        }
+        
+        // Stop the walk animation
+        removeAction(forKey: PlayerAnimationType.walk.rawValue)
+        
+        // Run animation(forever)
+        startAnimation(textures: dieTextures, speed: 0.25, name: PlayerAnimationType.die.rawValue, count: 0, resize: true, restore: true)
+
     }
     
     func moveToPosition(pos: CGPoint, direction: String, speed: TimeInterval) {
