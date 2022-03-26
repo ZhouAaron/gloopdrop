@@ -28,7 +28,48 @@ enum PhysicsCategory {
 }
 // MARK: - SPRITEKIT EXTENSIONS
 
+extension SKNode {
+    
+    // Used to set up an endless scroller
+    func setupScrollingView(imageNamed name: String, layer: Layer, emitterNamed: String?, blocks: Int, speed: TimeInterval) {
+        // Create sprite nodes; set position based on the node's # and width
+        for i in 0..<blocks {
+            let spriteNode = SKSpriteNode(imageNamed: name)
+            spriteNode.anchorPoint = CGPoint.zero
+            spriteNode.position = CGPoint(x: CGFloat(i) * spriteNode.size.width, y: 0)
+            spriteNode.zPosition = layer.rawValue
+            spriteNode.name = name
+            
+            // Set up optional particles
+            if let emitterNamed = emitterNamed, let particles = SKEmitterNode(fileNamed: emitterNamed) {
+                particles.name = "particles"
+                spriteNode.addChild(particles)
+            }
+            
+            // Use the custom extension to scroll
+            spriteNode.endlessScroll(speed: speed)
+            
+            // Add the sprite node to the container
+            addChild(spriteNode)
+        }
+    }
+}
 extension SKSpriteNode {
+    
+    // Used to create an endless scrolling background
+    func endlessScroll(speed: TimeInterval) {
+        
+        // set up actions to move and reset nodes
+        let moveAction = SKAction.moveBy(x: -self.size.width, y: 0, duration: speed) // takes the sprite node and moves it to the specified x-position at the desired speed.It uses the width of the node to determine how far to move it.
+        let resetAction = SKAction.moveBy(x: self.size.width, y: 0, duration: 0.0)
+        
+        // Set up a sequence of repeating actions
+        let sequenceAction = SKAction.sequence([moveAction, resetAction])
+        let repeatAction = SKAction.repeatForever(sequenceAction)
+        
+        // Run the repeating action
+        self.run(repeatAction)
+    }
     // Used to load texture arrays for animations
     // an atlas name, a prefix, and the start and stop frame numbers for the animation. It then uses a for-in loop to build and return the array of textures.
     func loadTextures(atlas: String, prefix: String, startAt: Int, stopsAt: Int) -> [SKTexture] {
@@ -77,4 +118,5 @@ extension SKScene {
         guard let view = view else { return 0.0 }
         return convertPoint(fromView: CGPoint(x: 0.0, y: view.bounds.size.height)).y
     }
+    
 }

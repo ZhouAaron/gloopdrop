@@ -16,6 +16,8 @@ enum CollectibleType: String {
 class Collectible: SKSpriteNode {
     // MARK: - PROPERTIES
     private var collectibleType: CollectibleType = .none
+    private let playCollectSound = SKAction.playSoundFileNamed("collect.wav", waitForCompletion: false)
+    private let playMissSound = SKAction.playSoundFileNamed("miss.wav", waitForCompletion: false)
     
     // MARK: - INIT
     init(collectibleType: CollectibleType) {
@@ -44,6 +46,13 @@ class Collectible: SKSpriteNode {
         self.physicsBody?.contactTestBitMask = PhysicsCategory.player | PhysicsCategory.foreground
         self.physicsBody?.collisionBitMask = PhysicsCategory.none
         
+        // Add glow effect
+        let effectNode = SKEffectNode()
+        effectNode.shouldRasterize = true
+        addChild(effectNode)
+        effectNode.addChild(SKSpriteNode(texture: texture))
+        effectNode.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius": 40.0])
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -67,12 +76,17 @@ class Collectible: SKSpriteNode {
     // Handle Contacts
     func collected() {
         let removeFromParent = SKAction.removeFromParent()
-        self.run(removeFromParent)
+        let actionGroup = SKAction.group([playCollectSound, removeFromParent])
+        self.run(actionGroup)
     }
 
     func missed() {
-        let removeFromParent = SKAction.removeFromParent()
-        self.run(removeFromParent)
+        let move = SKAction.moveBy(x: 0, y: -size.height/1.5, duration: 0.0)
+        let splatX = SKAction.scaleX(to: 1.5, duration: 0.0) // make wider
+        let splatY = SKAction.scaleY(to: 0.5, duration: 0.0) // make shorter
+        
+        let actionGroup = SKAction.group([playMissSound, move, splatX, splatY])
+        self.run(actionGroup)
     }
 
 }
