@@ -130,6 +130,11 @@ class GameScene: SKScene {
             stars.position = CGPoint(x: frame.midX, y: frame.midY)
             addChild(stars)
         }
+        
+        // Challenge: Create an action to run after a short random delay
+        let wait = SKAction.wait(forDuration: 30, withRange: 60)
+        let codeBlock = SKAction.run({self.sendRobot()})
+        run(SKAction.sequence([wait, codeBlock]))
     }
     
     func setupLabels() {
@@ -194,7 +199,48 @@ class GameScene: SKScene {
                                                 SKAction.removeFromParent()]))
         }
     }
-    
+    // MARK: - Challenge
+    func sendRobot() {
+        
+        // Set up robot sprite node
+        let robot = SKSpriteNode(imageNamed: "robot")
+        robot.zPosition = Layer.foreground.rawValue
+        robot.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        robot.position = CGPoint(x: frame.maxX + robot.size.width, y: frame.midY + robot.size.height)
+        addChild(robot)
+        
+        // Set up audio node and make it a child of the robot sprite node
+        let audioNode = SKAudioNode(fileNamed: "robot.wav")
+        audioNode.autoplayLooped = true
+        audioNode.run(SKAction.changeVolume(to: 1.0, duration: 0.0))
+        robot.addChild(audioNode)
+        
+        // Create and run a sequence of action that moves the robot up and down
+        let moveUp = SKAction.moveBy(x: 0, y: 15, duration: 0.25)
+        let moveDown = SKAction.moveBy(x: 0, y: -15, duration: 0.25)
+        let wobbleGroup = SKAction.sequence([moveDown, moveUp])
+        let wobbleAction = SKAction.repeatForever(wobbleGroup)
+        robot.run(wobbleAction)  // you can not run a completion handler on
+        // on an action that runs forever, so you need
+        // to run this action on its own.
+        // Create an action that moves the robot left
+        
+        let moveLeft = SKAction.moveTo(x: frame.minX - robot.size.width,
+                                       duration: 6.50)
+        
+        // Create an action to remove the robot sprite node
+        let removeFromParent = SKAction.removeFromParent()
+        
+        // Combine the actions into a sequence
+        let moveSequence = SKAction.sequence([moveLeft, removeFromParent])
+        
+        // Periodically run this method using a timed range
+        robot.run(moveSequence, completion: {
+            let wait = SKAction.wait(forDuration: 30, withRange: 60)
+            let codeBlock = SKAction.run({self.sendRobot()})
+            self.run(SKAction.sequence([wait, codeBlock]))
+        })
+    }
     // MARK: - Gloop Flow & Particle Effects
     func setupGloopFlow() {
         
@@ -427,7 +473,7 @@ class GameScene: SKScene {
         let touchedNodes = nodes(at: pos)
         for touchedNode in touchedNodes {
             print("touchedNode: \(String(describing: touchedNode.name))")
-            if touchedNode.name == "player" {
+            if touchedNode.name == "player" || touchedNode.name == "controller" {
                 movingPlayer = true
             }
         }

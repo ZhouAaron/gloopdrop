@@ -44,6 +44,34 @@ class Player: SKSpriteNode {
         self.physicsBody?.categoryBitMask = PhysicsCategory.player
         self.physicsBody?.contactTestBitMask = PhysicsCategory.collectible
         self.physicsBody?.collisionBitMask = PhysicsCategory.none
+        
+        // Add crosshairs
+        let crosshairs = SKSpriteNode(imageNamed: "crosshairs")
+        crosshairs.name = "crosshairs"
+        crosshairs.position = CGPoint(x: 0.0, y: size.height * 2.12)
+        crosshairs.alpha = 0.25
+        self.addChild(crosshairs)
+
+        // Add controller ring
+        let moveController = SKSpriteNode(imageNamed: "controller")
+        moveController.zPosition = Layer.player.rawValue
+        moveController.position = CGPoint(x: 0, y: -51)
+        moveController.name = "controller"
+        self.addChild(moveController)
+            
+        // The player hit marker was too small; this makes it easier to control
+        let playerController = SKShapeNode(rect: CGRect(x: -self.size.width/1.5,
+                                                     y: 0.0,
+                                                     width: self.size.width * 1.5,
+                                                     height: self.size.height * 1.5))
+            
+        playerController.name = "controller"
+        playerController.fillColor = .clear
+        playerController.alpha = 1.0
+        playerController.strokeColor = .clear
+        playerController.zPosition = Layer.player.rawValue
+        self.addChild(playerController)
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
